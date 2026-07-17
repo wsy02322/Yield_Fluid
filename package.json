@@ -1,0 +1,20 @@
+{
+  "name": "yield-fluid",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Independent on-chain APY audit for Fluid Lite ETH (iETHv2)",
+  "scripts": {
+    "calc:apy": "node scripts/calc-fluid-lite-apy.js",
+    "start": "node scripts/calc-fluid-lite-apy.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wsy02322/Yield_Fluid.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "decimal.js": "^10.6.0",
+    "viem": "^2.31.0"
+  }
+}
