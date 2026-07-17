@@ -1,21 +1,25 @@
 {
-  "generatedAt": "2026-07-17T10:23:56.606Z",
+  "generatedAt": "2026-07-17T10:31:16.439Z",
   "vault": "0xA0D3707c569ff8C87FA923d3823eC5D81c98Be78",
   "page": "https://fluid.io/lite/1/ETH",
   "assumptions": {
     "ignoreExitFee": true,
+    "exitFee": "0.0005",
+    "performanceFee": "0.2",
+    "performanceFeeTreatment": "Net APY from convertToAssets already after 20% performance fee; Gross grosses up period net return by /0.8",
     "daysPerYear": 365,
-    "stethSource": "ERC-4626 convertToAssets",
-    "ethMarkToMarket": "Curve stETH/ETH get_dy(stETH->ETH)",
+    "ethBase": "absolute ETH share return via convertToAssets * Curve(stETH->ETH)",
+    "stethBase": "excess over Lido wstETH->stETH growth",
     "trustFluidPublishedApy": false
   },
   "end": {
-    "blockNumber": "25551785",
-    "timestamp": 1784283815,
-    "iso": "2026-07-17T10:23:35.000Z",
+    "blockNumber": "25551821",
+    "timestamp": 1784284259,
+    "iso": "2026-07-17T10:30:59.000Z",
     "stethPerShare": "1.214531561690703132",
     "stethToEth": "0.99976776779646711",
     "ethPerShare": "1.21424950834987145788312728141198852",
+    "lidoStethPerWsteth": "1.239504898197387793",
     "totalSupply": "61084.194871016540361914",
     "totalAssetsSteth": "74188.682591314957196768"
   },
@@ -24,301 +28,468 @@
       "requestedDays": 1,
       "actualDays": "1.000000",
       "start": {
-        "blockNumber": "25544607",
-        "timestamp": 1784197415,
-        "iso": "2026-07-16T10:23:35.000Z",
+        "blockNumber": "25544644",
+        "timestamp": 1784197859,
+        "iso": "2026-07-16T10:30:59.000Z",
         "stethPerShare": "1.214422443504576686",
         "stethToEth": "0.999801615911400142",
         "ethPerShare": "1.214181521414946818012206059270289412",
+        "lidoStethPerWsteth": "1.239430122774537861",
         "totalSupply": "61077.790060596306406555",
         "totalAssetsSteth": "74174.239049248913421082"
       },
       "end": {
-        "blockNumber": "25551785",
-        "timestamp": 1784283815,
-        "iso": "2026-07-17T10:23:35.000Z",
+        "blockNumber": "25551821",
+        "timestamp": 1784284259,
+        "iso": "2026-07-17T10:30:59.000Z",
         "stethPerShare": "1.214531561690703132",
         "stethToEth": "0.99976776779646711",
         "ethPerShare": "1.21424950834987145788312728141198852",
+        "lidoStethPerWsteth": "1.239504898197387793",
         "totalSupply": "61084.194871016540361914",
         "totalAssetsSteth": "74188.682591314957196768"
       },
-      "steth": {
-        "startPrice": "1.214422443504576686",
-        "endPrice": "1.214531561690703132",
-        "periodReturn": "0.000089851918259640411515194431898346394",
-        "periodReturnPct": "0.008985%",
-        "apy": "0.033338142519721292321150508412253211933",
-        "apyPct": "3.333814%"
+      "diagnostics": {
+        "vaultStethAbsApyNetPct": "3.333814%",
+        "lidoStakingApyPct": "2.226419%",
+        "vaultStethAbsPeriodNetPct": "0.008985%",
+        "lidoPeriodPct": "0.006033%"
       },
       "eth": {
+        "meaning": "Absolute ETH return of vault share (net of 20% performance fee; exit fee ignored)",
         "startPrice": "1.214181521414946818012206059270289412",
         "endPrice": "1.21424950834987145788312728141198852",
-        "periodReturn": "0.000055994045145252478324093857938136968",
-        "periodReturnPct": "0.005599%",
-        "apy": "0.020647524991695650368265776872180577537",
-        "apyPct": "2.064752%"
+        "periodReturnNet": "0.000055994045145252478324093857938136968",
+        "periodReturnNetPct": "0.005599%",
+        "periodReturnGross": "0.00006999255643156559790511732242267121",
+        "periodReturnGrossPct": "0.006999%",
+        "apyNet": "0.020647524991695650368265776872180577537",
+        "apyNetPct": "2.064752%",
+        "apyGross": "0.025875494586430734795150368630738552446",
+        "apyGrossPct": "2.587549%"
+      },
+      "steth": {
+        "meaning": "Excess return over holding stETH/wstETH = vault stETH growth − Lido wstETH→stETH growth (net of performance fee; exit fee ignored)",
+        "vaultStethStart": "1.214422443504576686",
+        "vaultStethEnd": "1.214531561690703132",
+        "lidoStart": "1.239430122774537861",
+        "lidoEnd": "1.239504898197387793",
+        "periodReturnNet": "0.000029521431307667048322130013585405186",
+        "periodReturnNetPct": "0.002952%",
+        "periodReturnGross": "0.0000369017891345838104026625169817564825",
+        "periodReturnGrossPct": "0.003690%",
+        "apyNet": "0.010833424521623085510557935319907590289",
+        "apyNetPct": "1.083342%",
+        "apyGross": "0.013560018827232179066710399442406718215",
+        "apyGrossPct": "1.356002%"
       }
     },
     {
       "requestedDays": 7,
       "actualDays": "7.000000",
       "start": {
-        "blockNumber": "25501569",
-        "timestamp": 1783679015,
-        "iso": "2026-07-10T10:23:35.000Z",
+        "blockNumber": "25501605",
+        "timestamp": 1783679459,
+        "iso": "2026-07-10T10:30:59.000Z",
         "stethPerShare": "1.213631964149786155",
-        "stethToEth": "0.999798258073169802",
-        "ethPerShare": "1.21338712369887585935922894130369131",
-        "totalSupply": "60457.579259092208126228",
-        "totalAssetsSteth": "73373.250663953449803615"
+        "stethToEth": "0.999798253976082344",
+        "ethPerShare": "1.21338711872651956041323445227114732",
+        "lidoStethPerWsteth": "1.238981393823105522",
+        "totalSupply": "60457.566467917760705133",
+        "totalAssetsSteth": "73373.235140175281397396"
       },
       "end": {
-        "blockNumber": "25551785",
-        "timestamp": 1784283815,
-        "iso": "2026-07-17T10:23:35.000Z",
+        "blockNumber": "25551821",
+        "timestamp": 1784284259,
+        "iso": "2026-07-17T10:30:59.000Z",
         "stethPerShare": "1.214531561690703132",
         "stethToEth": "0.99976776779646711",
         "ethPerShare": "1.21424950834987145788312728141198852",
+        "lidoStethPerWsteth": "1.239504898197387793",
         "totalSupply": "61084.194871016540361914",
         "totalAssetsSteth": "74188.682591314957196768"
       },
-      "steth": {
-        "startPrice": "1.213631964149786155",
-        "endPrice": "1.214531561690703132",
-        "periodReturn": "0.000741244106525484438680404825278422617",
-        "periodReturnPct": "0.074124%",
-        "apy": "0.039392354490454062061635959808665414214",
-        "apyPct": "3.939235%"
+      "diagnostics": {
+        "vaultStethAbsApyNetPct": "3.939235%",
+        "lidoStakingApyPct": "2.227155%",
+        "vaultStethAbsPeriodNetPct": "0.074124%",
+        "lidoPeriodPct": "0.042253%"
       },
       "eth": {
-        "startPrice": "1.21338712369887585935922894130369131",
+        "meaning": "Absolute ETH return of vault share (net of 20% performance fee; exit fee ignored)",
+        "startPrice": "1.21338711872651956041323445227114732",
         "endPrice": "1.21424950834987145788312728141198852",
-        "periodReturn": "0.000710725072116073485275539130930679081",
-        "periodReturnPct": "0.071073%",
-        "apy": "0.037740831233579598778985746596468294745",
-        "apyPct": "3.774083%"
+        "periodReturnNet": "0.000710729172942759743056373577419208725",
+        "periodReturnNetPct": "0.071073%",
+        "periodReturnGross": "0.00088841146617844967882046697177401090625",
+        "periodReturnGrossPct": "0.088841%",
+        "apyNet": "0.037741052974903213503558041813072471451",
+        "apyNetPct": "3.774105%",
+        "apyGross": "0.047392504786487861263017423105168666978",
+        "apyGrossPct": "4.739250%"
+      },
+      "steth": {
+        "meaning": "Excess return over holding stETH/wstETH = vault stETH growth − Lido wstETH→stETH growth (net of performance fee; exit fee ignored)",
+        "vaultStethStart": "1.213631964149786155",
+        "vaultStethEnd": "1.214531561690703132",
+        "lidoStart": "1.238981393823105522",
+        "lidoEnd": "1.239504898197387793",
+        "periodReturnNet": "0.000318716071082674652410102419110427562",
+        "periodReturnNetPct": "0.031872%",
+        "periodReturnGross": "0.0003983950888533433155126280238880344525",
+        "periodReturnGrossPct": "0.039840%",
+        "apyNet": "0.016754934286488625214295866251510093892",
+        "apyNetPct": "1.675493%",
+        "apyGross": "0.020986504612086219694428153399226041075",
+        "apyGrossPct": "2.098650%"
       }
     },
     {
       "requestedDays": 14,
       "actualDays": "14.000000",
       "start": {
-        "blockNumber": "25451366",
-        "timestamp": 1783074215,
-        "iso": "2026-07-03T10:23:35.000Z",
+        "blockNumber": "25451403",
+        "timestamp": 1783074659,
+        "iso": "2026-07-03T10:30:59.000Z",
         "stethPerShare": "1.212980172076538689",
-        "stethToEth": "0.999749727196261339",
-        "ethPerShare": "1.212676596127993690184879796588444571",
+        "stethToEth": "0.999749726631742186",
+        "ethPerShare": "1.212676595443243150838437924702434154",
+        "lidoStethPerWsteth": "1.238448566083594004",
         "totalSupply": "58421.403422132037384169",
         "totalAssetsSteth": "70864.003975930604998851"
       },
       "end": {
-        "blockNumber": "25551785",
-        "timestamp": 1784283815,
-        "iso": "2026-07-17T10:23:35.000Z",
+        "blockNumber": "25551821",
+        "timestamp": 1784284259,
+        "iso": "2026-07-17T10:30:59.000Z",
         "stethPerShare": "1.214531561690703132",
         "stethToEth": "0.99976776779646711",
         "ethPerShare": "1.21424950834987145788312728141198852",
+        "lidoStethPerWsteth": "1.239504898197387793",
         "totalSupply": "61084.194871016540361914",
         "totalAssetsSteth": "74188.682591314957196768"
       },
-      "steth": {
-        "startPrice": "1.212980172076538689",
-        "endPrice": "1.214531561690703132",
-        "periodReturn": "0.001278990085640534918489232923817416078",
-        "periodReturnPct": "0.127899%",
-        "apy": "0.033885249650627416946462350168192564563",
-        "apyPct": "3.388525%"
+      "diagnostics": {
+        "vaultStethAbsApyNetPct": "3.388525%",
+        "lidoStakingApyPct": "2.247698%",
+        "vaultStethAbsPeriodNetPct": "0.127899%",
+        "lidoPeriodPct": "0.085295%"
       },
       "eth": {
-        "startPrice": "1.212676596127993690184879796588444571",
+        "meaning": "Absolute ETH return of vault share (net of 20% performance fee; exit fee ignored)",
+        "startPrice": "1.212676595443243150838437924702434154",
         "endPrice": "1.21424950834987145788312728141198852",
-        "periodReturn": "0.001297058281573162662408697840616552724",
-        "periodReturnPct": "0.129706%",
-        "apy": "0.03437176337973980040853001815484138778",
-        "apyPct": "3.437176%"
+        "periodReturnNet": "0.001297058846966032682882991662194342193",
+        "periodReturnNetPct": "0.129706%",
+        "periodReturnGross": "0.00162132355870754085360373957774292774125",
+        "periodReturnGrossPct": "0.162132%",
+        "apyNet": "0.034371778607249176004204246339093914124",
+        "apyNetPct": "3.437178%",
+        "apyGross": "0.043140622018165188727134236477533776601",
+        "apyGrossPct": "4.314062%"
+      },
+      "steth": {
+        "meaning": "Excess return over holding stETH/wstETH = vault stETH growth − Lido wstETH→stETH growth (net of performance fee; exit fee ignored)",
+        "vaultStethStart": "1.212980172076538689",
+        "vaultStethEnd": "1.214531561690703132",
+        "lidoStart": "1.238448566083594004",
+        "lidoEnd": "1.239504898197387793",
+        "periodReturnNet": "0.000426042177489387954220212656677547096",
+        "periodReturnNetPct": "0.042604%",
+        "periodReturnGross": "0.00053255272186173494277526582084693387",
+        "periodReturnGrossPct": "0.053255%",
+        "apyNet": "0.011167053944392694640484578267439785672",
+        "apyNetPct": "1.116705%",
+        "apyGross": "0.013977498881263032795869812148740345437",
+        "apyGrossPct": "1.397750%"
       }
     },
     {
       "requestedDays": 30,
       "actualDays": "30.000000",
       "start": {
-        "blockNumber": "25336647",
-        "timestamp": 1781691815,
-        "iso": "2026-06-17T10:23:35.000Z",
+        "blockNumber": "25336684",
+        "timestamp": 1781692259,
+        "iso": "2026-06-17T10:30:59.000Z",
         "stethPerShare": "1.211301810859702529",
         "stethToEth": "0.99962514260155942",
         "ethPerShare": "1.21084774541415729741509647271777318",
+        "lidoStethPerWsteth": "1.237177964998796368",
         "totalSupply": "60227.721179290201647222",
         "totalAssetsSteth": "72953.947728427480044515"
       },
       "end": {
-        "blockNumber": "25551785",
-        "timestamp": 1784283815,
-        "iso": "2026-07-17T10:23:35.000Z",
+        "blockNumber": "25551821",
+        "timestamp": 1784284259,
+        "iso": "2026-07-17T10:30:59.000Z",
         "stethPerShare": "1.214531561690703132",
         "stethToEth": "0.99976776779646711",
         "ethPerShare": "1.21424950834987145788312728141198852",
+        "lidoStethPerWsteth": "1.239504898197387793",
         "totalSupply": "61084.194871016540361914",
         "totalAssetsSteth": "74188.682591314957196768"
       },
-      "steth": {
-        "startPrice": "1.211301810859702529",
-        "endPrice": "1.214531561690703132",
-        "periodReturn": "0.002666346902188099450621290880922043374",
-        "periodReturnPct": "0.266635%",
-        "apy": "0.032927890520425188773504494243313444783",
-        "apyPct": "3.292789%"
+      "diagnostics": {
+        "vaultStethAbsApyNetPct": "3.292789%",
+        "lidoStakingApyPct": "2.312539%",
+        "vaultStethAbsPeriodNetPct": "0.266635%",
+        "lidoPeriodPct": "0.188084%"
       },
       "eth": {
+        "meaning": "Absolute ETH return of vault share (net of 20% performance fee; exit fee ignored)",
         "startPrice": "1.21084774541415729741509647271777318",
         "endPrice": "1.21424950834987145788312728141198852",
-        "periodReturn": "0.002809406012108173407643719729634653238",
-        "periodReturnPct": "0.280941%",
-        "apy": "0.03472240386450679755550262726646279268",
-        "apyPct": "3.472240%"
+        "periodReturnNet": "0.002809406012108173407643719729634653238",
+        "periodReturnNetPct": "0.280941%",
+        "periodReturnGross": "0.0035117575151352167595546496620433165475",
+        "periodReturnGrossPct": "0.351176%",
+        "apyNet": "0.03472240386450679755550262726646279268",
+        "apyNetPct": "3.472240%",
+        "apyGross": "0.04357418337809602751818810852785395955",
+        "apyGrossPct": "4.357418%"
+      },
+      "steth": {
+        "meaning": "Excess return over holding stETH/wstETH = vault stETH growth − Lido wstETH→stETH growth (net of performance fee; exit fee ignored)",
+        "vaultStethStart": "1.211301810859702529",
+        "vaultStethEnd": "1.214531561690703132",
+        "lidoStart": "1.237177964998796368",
+        "lidoEnd": "1.239504898197387793",
+        "periodReturnNet": "0.000785507391282577593365944246063337361",
+        "periodReturnNetPct": "0.078551%",
+        "periodReturnGross": "0.00098188423910322199170743030757917170125",
+        "periodReturnGrossPct": "0.098188%",
+        "apyNet": "0.00959903300955826987461151225800162951",
+        "apyNetPct": "0.959903%",
+        "apyGross": "0.012011968278372624007240434030358674022",
+        "apyGrossPct": "1.201197%"
       }
     },
     {
       "requestedDays": 90,
       "actualDays": "90.000000",
       "start": {
-        "blockNumber": "24906132",
-        "timestamp": 1776507815,
-        "iso": "2026-04-18T10:23:35.000Z",
+        "blockNumber": "24906169",
+        "timestamp": 1776508259,
+        "iso": "2026-04-18T10:30:59.000Z",
         "stethPerShare": "1.206814755107017279",
         "stethToEth": "0.999680404080451138",
         "ethPerShare": "1.206429062035633717109251567881213502",
-        "totalSupply": "71801.492815177258091025",
-        "totalAssetsSteth": "86651.100968066403465711"
+        "lidoStethPerWsteth": "1.232111422954067182",
+        "totalSupply": "72097.977584653305747528",
+        "totalAssetsSteth": "87008.903162534600390253"
       },
       "end": {
-        "blockNumber": "25551785",
-        "timestamp": 1784283815,
-        "iso": "2026-07-17T10:23:35.000Z",
+        "blockNumber": "25551821",
+        "timestamp": 1784284259,
+        "iso": "2026-07-17T10:30:59.000Z",
         "stethPerShare": "1.214531561690703132",
         "stethToEth": "0.99976776779646711",
         "ethPerShare": "1.21424950834987145788312728141198852",
+        "lidoStethPerWsteth": "1.239504898197387793",
         "totalSupply": "61084.194871016540361914",
         "totalAssetsSteth": "74188.682591314957196768"
       },
-      "steth": {
-        "startPrice": "1.206814755107017279",
-        "endPrice": "1.214531561690703132",
-        "periodReturn": "0.006394358828502677792685767898498260421",
-        "periodReturnPct": "0.639436%",
-        "apy": "0.026187129767682137376791880478390833928",
-        "apyPct": "2.618713%"
+      "diagnostics": {
+        "vaultStethAbsApyNetPct": "2.618713%",
+        "lidoStakingApyPct": "2.456001%",
+        "vaultStethAbsPeriodNetPct": "0.639436%",
+        "lidoPeriodPct": "0.600065%"
       },
       "eth": {
+        "meaning": "Absolute ETH return of vault share (net of 20% performance fee; exit fee ignored)",
         "startPrice": "1.206429062035633717109251567881213502",
         "endPrice": "1.21424950834987145788312728141198852",
-        "periodReturn": "0.006482309288075449228932582730745067565",
-        "periodReturnPct": "0.648231%",
-        "apy": "0.026550881292370611562448986071710206934",
-        "apyPct": "2.655088%"
+        "periodReturnNet": "0.006482309288075449228932582730745067565",
+        "periodReturnNetPct": "0.648231%",
+        "periodReturnGross": "0.00810288661009431153616572841343133445625",
+        "periodReturnGrossPct": "0.810289%",
+        "apyNet": "0.026550881292370611562448986071710206934",
+        "apyNetPct": "2.655088%",
+        "apyGross": "0.033270778774653054020702156735079081967",
+        "apyGrossPct": "3.327078%"
+      },
+      "steth": {
+        "meaning": "Excess return over holding stETH/wstETH = vault stETH growth − Lido wstETH→stETH growth (net of performance fee; exit fee ignored)",
+        "vaultStethStart": "1.206814755107017279",
+        "vaultStethEnd": "1.214531561690703132",
+        "lidoStart": "1.232111422954067182",
+        "lidoEnd": "1.239504898197387793",
+        "periodReturnNet": "0.000393704094213895874793488947298051483",
+        "periodReturnNetPct": "0.039370%",
+        "periodReturnGross": "0.00049213011776736984349186118412256435375",
+        "periodReturnGrossPct": "0.049213%",
+        "apyNet": "0.001597649481778010457195165192520279359",
+        "apyNetPct": "0.159765%",
+        "apyGross": "0.001997362158211705068387029936772026101",
+        "apyGrossPct": "0.199736%"
       }
     },
     {
       "requestedDays": 120,
       "actualDays": "120.000000",
       "start": {
-        "blockNumber": "24690912",
-        "timestamp": 1773915815,
-        "iso": "2026-03-19T10:23:35.000Z",
+        "blockNumber": "24690949",
+        "timestamp": 1773916259,
+        "iso": "2026-03-19T10:30:59.000Z",
         "stethPerShare": "1.203866753117106639",
         "stethToEth": "0.999782930546870139",
         "ethPerShare": "1.203605430419366287276503060947752821",
+        "lidoStethPerWsteth": "1.22965476780354332",
         "totalSupply": "64449.35813187329461956",
         "totalAssetsSteth": "77588.439514699896782042"
       },
       "end": {
-        "blockNumber": "25551785",
-        "timestamp": 1784283815,
-        "iso": "2026-07-17T10:23:35.000Z",
+        "blockNumber": "25551821",
+        "timestamp": 1784284259,
+        "iso": "2026-07-17T10:30:59.000Z",
         "stethPerShare": "1.214531561690703132",
         "stethToEth": "0.99976776779646711",
         "ethPerShare": "1.21424950834987145788312728141198852",
+        "lidoStethPerWsteth": "1.239504898197387793",
         "totalSupply": "61084.194871016540361914",
         "totalAssetsSteth": "74188.682591314957196768"
       },
-      "steth": {
-        "startPrice": "1.203866753117106639",
-        "endPrice": "1.214531561690703132",
-        "periodReturn": "0.008858794834214571345816183815540389794",
-        "periodReturnPct": "0.885879%",
-        "apy": "0.027189928246957030927453540828714540181",
-        "apyPct": "2.718993%"
+      "diagnostics": {
+        "vaultStethAbsApyNetPct": "2.718993%",
+        "lidoStakingApyPct": "2.456502%",
+        "vaultStethAbsPeriodNetPct": "0.885879%",
+        "lidoPeriodPct": "0.801048%"
       },
       "eth": {
+        "meaning": "Absolute ETH return of vault share (net of 20% performance fee; exit fee ignored)",
         "startPrice": "1.203605430419366287276503060947752821",
         "endPrice": "1.21424950834987145788312728141198852",
-        "periodReturn": "0.008843494438868148989030136776901923644",
-        "periodReturnPct": "0.884349%",
-        "apy": "0.027142544662019509921770026337328745282",
-        "apyPct": "2.714254%"
+        "periodReturnNet": "0.008843494438868148989030136776901923644",
+        "periodReturnNetPct": "0.884349%",
+        "periodReturnGross": "0.011054368048585186236287670971127404555",
+        "periodReturnGrossPct": "1.105437%",
+        "apyNet": "0.027142544662019509921770026337328745282",
+        "apyNetPct": "2.714254%",
+        "apyGross": "0.034004591667682873845043440573557642158",
+        "apyGrossPct": "3.400459%"
+      },
+      "steth": {
+        "meaning": "Excess return over holding stETH/wstETH = vault stETH growth − Lido wstETH→stETH growth (net of performance fee; exit fee ignored)",
+        "vaultStethStart": "1.203866753117106639",
+        "vaultStethEnd": "1.214531561690703132",
+        "lidoStart": "1.22965476780354332",
+        "lidoEnd": "1.239504898197387793",
+        "periodReturnNet": "0.000848310386259187026241905068428158196",
+        "periodReturnNetPct": "0.084831%",
+        "periodReturnGross": "0.001060387982823983782802381335535197745",
+        "periodReturnGrossPct": "0.106039%",
+        "apyNet": "0.002582512560773054554686206736616336345",
+        "apyNetPct": "0.258251%",
+        "apyGross": "0.00322883943803840399915688002874534453",
+        "apyGrossPct": "0.322884%"
       }
     },
     {
       "requestedDays": 180,
       "actualDays": "180.000000",
       "start": {
-        "blockNumber": "24261019",
-        "timestamp": 1768731815,
-        "iso": "2026-01-18T10:23:35.000Z",
+        "blockNumber": "24261056",
+        "timestamp": 1768732259,
+        "iso": "2026-01-18T10:30:59.000Z",
         "stethPerShare": "1.19880138385118736",
         "stethToEth": "0.999846281239368951",
         "ethPerShare": "1.19861710558821896904001521846765936",
+        "lidoStethPerWsteth": "1.224683910558821997",
         "totalSupply": "78519.882440939416867796",
         "totalAssetsSteth": "94129.74373003072028126"
       },
       "end": {
-        "blockNumber": "25551785",
-        "timestamp": 1784283815,
-        "iso": "2026-07-17T10:23:35.000Z",
+        "blockNumber": "25551821",
+        "timestamp": 1784284259,
+        "iso": "2026-07-17T10:30:59.000Z",
         "stethPerShare": "1.214531561690703132",
         "stethToEth": "0.99976776779646711",
         "ethPerShare": "1.21424950834987145788312728141198852",
+        "lidoStethPerWsteth": "1.239504898197387793",
         "totalSupply": "61084.194871016540361914",
         "totalAssetsSteth": "74188.682591314957196768"
       },
-      "steth": {
-        "startPrice": "1.19880138385118736",
-        "endPrice": "1.214531561690703132",
-        "periodReturn": "0.013121587988981192358744042078326903221",
-        "periodReturnPct": "1.312159%",
-        "apy": "0.02678710276274758830927581821597194645",
-        "apyPct": "2.678710%"
+      "diagnostics": {
+        "vaultStethAbsApyNetPct": "2.678710%",
+        "lidoStakingApyPct": "2.469257%",
+        "vaultStethAbsPeriodNetPct": "1.312159%",
+        "lidoPeriodPct": "1.210189%"
       },
       "eth": {
+        "meaning": "Absolute ETH return of vault share (net of 20% performance fee; exit fee ignored)",
         "startPrice": "1.19861710558821896904001521846765936",
         "endPrice": "1.21424950834987145788312728141198852",
-        "periodReturn": "0.013042032095796695784293635249690334956",
-        "periodReturnPct": "1.304203%",
-        "apy": "0.026623611696901266881117622919616265576",
-        "apyPct": "2.662361%"
+        "periodReturnNet": "0.013042032095796695784293635249690334956",
+        "periodReturnNetPct": "1.304203%",
+        "periodReturnGross": "0.016302540119745869730367044062112918695",
+        "periodReturnGrossPct": "1.630254%",
+        "apyNet": "0.026623611696901266881117622919616265576",
+        "apyNetPct": "2.662361%",
+        "apyGross": "0.033334919434317206074562005005579108399",
+        "apyGrossPct": "3.333492%"
+      },
+      "steth": {
+        "meaning": "Excess return over holding stETH/wstETH = vault stETH growth − Lido wstETH→stETH growth (net of performance fee; exit fee ignored)",
+        "vaultStethStart": "1.19880138385118736",
+        "vaultStethEnd": "1.214531561690703132",
+        "lidoStart": "1.224683910558821997",
+        "lidoEnd": "1.239504898197387793",
+        "periodReturnNet": "0.001019699892971998666701811646269411928",
+        "periodReturnNetPct": "0.101970%",
+        "periodReturnGross": "0.00127462486621499833337726455783676491",
+        "periodReturnGrossPct": "0.127462%",
+        "apyNet": "0.002068808306717745925523495770915099698",
+        "apyNetPct": "0.206881%",
+        "apyGross": "0.002586348988561975513088971599703467061",
+        "apyGrossPct": "0.258635%"
       }
     }
   ],
   "summary": {
-    "stethBase": {
-      "1": "3.333814%",
-      "7": "3.939235%",
-      "14": "3.388525%",
-      "30": "3.292789%",
-      "90": "2.618713%",
-      "120": "2.718993%",
-      "180": "2.678710%"
-    },
-    "ethBase": {
+    "ethBaseNetApy": {
       "1": "2.064752%",
-      "7": "3.774083%",
-      "14": "3.437176%",
+      "7": "3.774105%",
+      "14": "3.437178%",
       "30": "3.472240%",
       "90": "2.655088%",
       "120": "2.714254%",
       "180": "2.662361%"
+    },
+    "ethBaseGrossApy": {
+      "1": "2.587549%",
+      "7": "4.739250%",
+      "14": "4.314062%",
+      "30": "4.357418%",
+      "90": "3.327078%",
+      "120": "3.400459%",
+      "180": "3.333492%"
+    },
+    "stethBaseExcessNetApy": {
+      "1": "1.083342%",
+      "7": "1.675493%",
+      "14": "1.116705%",
+      "30": "0.959903%",
+      "90": "0.159765%",
+      "120": "0.258251%",
+      "180": "0.206881%"
+    },
+    "stethBaseExcessGrossApy": {
+      "1": "1.356002%",
+      "7": "2.098650%",
+      "14": "1.397750%",
+      "30": "1.201197%",
+      "90": "0.199736%",
+      "120": "0.322884%",
+      "180": "0.258635%"
+    },
+    "lidoStakingApy": {
+      "1": "2.226419%",
+      "7": "2.227155%",
+      "14": "2.247698%",
+      "30": "2.312539%",
+      "90": "2.456001%",
+      "120": "2.456502%",
+      "180": "2.469257%"
     }
   }
 }

@@ -2,14 +2,20 @@
  * Independent APY audit for Fluid Lite ETH vault (iETHv2)
  * https://fluid.io/lite/1/ETH
  *
- * Methodology (does NOT trust Fluid UI / API APY fields):
- * 1) Read on-chain ERC-4626 convertToAssets(1 share) at window endpoints.
- *    asset() = stETH, so this is stETH redeemable per iETHv2 share.
- * 2) Mark stETH to ETH with Curve stETH/ETH pool get_dy(stETH -> ETH).
- * 3) Annualize: APY = (P_end / P_start) ** (365 / days) - 1
- * 4) Ignore the 0.05% withdrawal fee (per request).
+ * Does NOT trust Fluid UI / API APY fields.
  *
- * Outputs two bases: stETH and ETH.
+ * Bases (corrected):
+ * - ETH base  = absolute ETH return of 1 vault share
+ *               P_eth = convertToAssets(1) * Curve.get_dy(stETH -> ETH)
+ * - stETH base = excess return over simply holding stETH/wstETH
+ *               = vault stETH-share growth − Lido wstETH→stETH growth
+ *               (this is why the two bases differ by ~staking yield)
+ *
+ * Fees:
+ * - Exit / withdrawal fee 0.05%: ignored (per request)
+ * - Performance / revenue fee 20% on profits: already embedded in
+ *   convertToAssets (Net APY). We also report Gross APY by grossing up
+ *   the period return: periodGross = periodNet / (1 - 0.20)
  */
 
 import fs from "node:fs";
@@ -32,10 +38,13 @@ const ROOT = path.resolve(__dirname, "..");
 const OUT_DIR = path.join(ROOT, "output");
 
 const VAULT = "0xA0D3707c569ff8C87FA923d3823eC5D81c98Be78";
+const WSTETH = "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0";
 const CURVE_STETH_ETH = "0xDC24316b9AE028F1497c275EB9192a3Ea0f67022";
 const ONE = 10n ** 18n;
 const WINDOWS_DAYS = [1, 7, 14, 30, 90, 120, 180];
 const DAYS_PER_YEAR = 365;
+const PERFORMANCE_FEE = new Decimal("0.20"); // 20% on profits, already in net exchange rate
+const EXIT_FEE = new Decimal("0.0005"); // 0.05%, ignored in APY by request
 
 const RPC_URLS = [
   process.env.ETH_RPC_URL,
@@ -58,6 +67,10 @@ const curveAbi = parseAbi([
   "function get_dy(int128 i, int128 j, uint256 dx) view returns (uint256)",
 ]);
 
+const wstethAbi = parseAbi([
+  "function getStETHByWstETH(uint256 _wstETHAmount) view returns (uint256)",
+]);
+
 function pct(d) {
   return `${d.mul(100).toFixed(6)}%`;
 }
@@ -66,11 +79,23 @@ function toDec(v) {
   return new Decimal(formatEther(v));
 }
 
+function annualize(start, end, actualDays) {
+  return new Decimal(end).div(start).pow(new Decimal(DAYS_PER_YEAR).div(actualDays)).minus(1);
+}
+
+function grossUpPeriodReturn(periodNet) {
+  // performance fee is charged on profits: net = gross * (1 - fee)
+  return periodNet.div(new Decimal(1).minus(PERFORMANCE_FEE));
+}
+
+function annualizeFromPeriod(periodReturn, actualDays) {
+  return new Decimal(1).plus(periodReturn).pow(new Decimal(DAYS_PER_YEAR).div(actualDays)).minus(1);
+}
+
 async function findBlockNearTimestamp(client, targetTs, latestBlock) {
   let lo = 1n;
   let hi = latestBlock.number;
 
-  // Fast lower bound estimate (~12s blocks) then binary search.
   const approx = latestBlock.number - BigInt(
     Math.ceil((Number(latestBlock.timestamp) - targetTs) / 12) + 5000,
   );
@@ -94,48 +119,60 @@ async function findBlockNearTimestamp(client, targetTs, latestBlock) {
     client.getBlock({ blockNumber: lo }),
     client.getBlock({ blockNumber: hi }),
   ]);
-  const pick =
-    Math.abs(Number(a.timestamp) - targetTs) <=
+  return Math.abs(Number(a.timestamp) - targetTs) <=
     Math.abs(Number(b.timestamp) - targetTs)
-      ? a
-      : b;
-  return pick;
+    ? a
+    : b;
 }
 
 async function readSnapshot(client, blockNumber) {
-  const [stethPerShareRaw, curveDyRaw, totalSupplyRaw, totalAssetsRaw, block] =
-    await Promise.all([
-      client.readContract({
-        address: VAULT,
-        abi: vaultAbi,
-        functionName: "convertToAssets",
-        args: [ONE],
-        blockNumber,
-      }),
-      client.readContract({
-        address: CURVE_STETH_ETH,
-        abi: curveAbi,
-        functionName: "get_dy",
-        args: [1n, 0n, ONE], // sell 1 stETH for ETH
-        blockNumber,
-      }),
-      client.readContract({
-        address: VAULT,
-        abi: vaultAbi,
-        functionName: "totalSupply",
-        blockNumber,
-      }),
-      client.readContract({
-        address: VAULT,
-        abi: vaultAbi,
-        functionName: "totalAssets",
-        blockNumber,
-      }),
-      client.getBlock({ blockNumber }),
-    ]);
+  const [
+    stethPerShareRaw,
+    curveDyRaw,
+    lidoWstRaw,
+    totalSupplyRaw,
+    totalAssetsRaw,
+    block,
+  ] = await Promise.all([
+    client.readContract({
+      address: VAULT,
+      abi: vaultAbi,
+      functionName: "convertToAssets",
+      args: [ONE],
+      blockNumber,
+    }),
+    client.readContract({
+      address: CURVE_STETH_ETH,
+      abi: curveAbi,
+      functionName: "get_dy",
+      args: [1n, 0n, ONE],
+      blockNumber,
+    }),
+    client.readContract({
+      address: WSTETH,
+      abi: wstethAbi,
+      functionName: "getStETHByWstETH",
+      args: [ONE],
+      blockNumber,
+    }),
+    client.readContract({
+      address: VAULT,
+      abi: vaultAbi,
+      functionName: "totalSupply",
+      blockNumber,
+    }),
+    client.readContract({
+      address: VAULT,
+      abi: vaultAbi,
+      functionName: "totalAssets",
+      blockNumber,
+    }),
+    client.getBlock({ blockNumber }),
+  ]);
 
   const stethPerShare = toDec(stethPerShareRaw);
   const stethToEth = toDec(curveDyRaw);
+  const lidoStethPerWsteth = toDec(lidoWstRaw);
   const ethPerShare = stethPerShare.mul(stethToEth);
 
   return {
@@ -145,44 +182,75 @@ async function readSnapshot(client, blockNumber) {
     stethPerShare: stethPerShare.toFixed(),
     stethToEth: stethToEth.toFixed(),
     ethPerShare: ethPerShare.toFixed(),
+    lidoStethPerWsteth: lidoStethPerWsteth.toFixed(),
     totalSupply: toDec(totalSupplyRaw).toFixed(),
     totalAssetsSteth: toDec(totalAssetsRaw).toFixed(),
   };
 }
 
-function calcWindowApy(start, end, requestedDays) {
+function packReturn(periodNet, actualDays) {
+  const periodGross = grossUpPeriodReturn(periodNet);
+  const apyNet = annualizeFromPeriod(periodNet, actualDays);
+  const apyGross = annualizeFromPeriod(periodGross, actualDays);
+  return {
+    periodReturnNet: periodNet.toFixed(),
+    periodReturnNetPct: pct(periodNet),
+    periodReturnGross: periodGross.toFixed(),
+    periodReturnGrossPct: pct(periodGross),
+    apyNet: apyNet.toFixed(),
+    apyNetPct: pct(apyNet),
+    apyGross: apyGross.toFixed(),
+    apyGrossPct: pct(apyGross),
+  };
+}
+
+function calcWindow(start, end, requestedDays) {
   const actualDays = new Decimal(end.timestamp - start.timestamp).div(86400);
-  const stethStart = new Decimal(start.stethPerShare);
-  const stethEnd = new Decimal(end.stethPerShare);
-  const ethStart = new Decimal(start.ethPerShare);
-  const ethEnd = new Decimal(end.ethPerShare);
 
-  const stethPeriod = stethEnd.div(stethStart).minus(1);
-  const ethPeriod = ethEnd.div(ethStart).minus(1);
+  const vaultStethStart = new Decimal(start.stethPerShare);
+  const vaultStethEnd = new Decimal(end.stethPerShare);
+  const vaultEthStart = new Decimal(start.ethPerShare);
+  const vaultEthEnd = new Decimal(end.ethPerShare);
+  const lidoStart = new Decimal(start.lidoStethPerWsteth);
+  const lidoEnd = new Decimal(end.lidoStethPerWsteth);
 
-  const stethApy = stethEnd.div(stethStart).pow(new Decimal(DAYS_PER_YEAR).div(actualDays)).minus(1);
-  const ethApy = ethEnd.div(ethStart).pow(new Decimal(DAYS_PER_YEAR).div(actualDays)).minus(1);
+  // Absolute growth already net of 20% performance fee (in exchange rate).
+  const vaultStethPeriodNet = vaultStethEnd.div(vaultStethStart).minus(1);
+  const vaultEthPeriodNet = vaultEthEnd.div(vaultEthStart).minus(1);
+  const lidoPeriod = lidoEnd.div(lidoStart).minus(1);
+
+  // stETH base = excess over holding stETH/wstETH.
+  const stethExcessPeriodNet = vaultStethPeriodNet.minus(lidoPeriod);
+
+  const ethAbs = packReturn(vaultEthPeriodNet, actualDays);
+  const stethExcess = packReturn(stethExcessPeriodNet, actualDays);
 
   return {
     requestedDays,
     actualDays: actualDays.toFixed(6),
     start,
     end,
-    steth: {
-      startPrice: stethStart.toFixed(),
-      endPrice: stethEnd.toFixed(),
-      periodReturn: stethPeriod.toFixed(),
-      periodReturnPct: pct(stethPeriod),
-      apy: stethApy.toFixed(),
-      apyPct: pct(stethApy),
+    diagnostics: {
+      vaultStethAbsApyNetPct: pct(annualize(vaultStethStart, vaultStethEnd, actualDays)),
+      lidoStakingApyPct: pct(annualize(lidoStart, lidoEnd, actualDays)),
+      vaultStethAbsPeriodNetPct: pct(vaultStethPeriodNet),
+      lidoPeriodPct: pct(lidoPeriod),
     },
+    // Primary requested bases:
     eth: {
-      startPrice: ethStart.toFixed(),
-      endPrice: ethEnd.toFixed(),
-      periodReturn: ethPeriod.toFixed(),
-      periodReturnPct: pct(ethPeriod),
-      apy: ethApy.toFixed(),
-      apyPct: pct(ethApy),
+      meaning: "Absolute ETH return of vault share (net of 20% performance fee; exit fee ignored)",
+      startPrice: vaultEthStart.toFixed(),
+      endPrice: vaultEthEnd.toFixed(),
+      ...ethAbs,
+    },
+    steth: {
+      meaning:
+        "Excess return over holding stETH/wstETH = vault stETH growth − Lido wstETH→stETH growth (net of performance fee; exit fee ignored)",
+      vaultStethStart: vaultStethStart.toFixed(),
+      vaultStethEnd: vaultStethEnd.toFixed(),
+      lidoStart: lidoStart.toFixed(),
+      lidoEnd: lidoEnd.toFixed(),
+      ...stethExcess,
     },
   };
 }
@@ -195,40 +263,55 @@ function renderMarkdown(report) {
   lines.push(`- Page: https://fluid.io/lite/1/ETH`);
   lines.push(`- Generated at: ${report.generatedAt}`);
   lines.push(`- End snapshot: block ${report.end.blockNumber} @ ${report.end.iso}`);
-  lines.push(`- Exit fee: ignored (on-chain withdrawal fee is 0.05%, not applied here)`);
-  lines.push(`- Annualization: \`(P_end / P_start) ** (365 / actualDays) - 1\``);
+  lines.push(`- Exit fee ${EXIT_FEE.mul(100).toFixed(2)}%: **ignored**`);
+  lines.push(
+    `- Performance fee ${PERFORMANCE_FEE.mul(100).toFixed(0)}%: **included** (Net from exchange rate; Gross = Net period return / 0.8)`,
+  );
+  lines.push(`- Annualization: \`(1 + periodReturn) ** (365 / actualDays) - 1\``);
   lines.push("");
   lines.push("## Method");
   lines.push("");
-  lines.push("1. On-chain `convertToAssets(1e18)` → stETH per share (ERC-4626; `asset()` = stETH).");
-  lines.push("2. Curve stETH/ETH `get_dy(1,0,1e18)` → ETH per 1 stETH market conversion.");
-  lines.push("3. ETH-per-share = stETH-per-share × Curve(stETH→ETH).");
-  lines.push("4. Do **not** use Fluid API/UI `apy.apyWithoutFee` / hardcoded frontend fallbacks.");
+  lines.push("1. On-chain `convertToAssets(1e18)` → vault stETH per share.");
+  lines.push("2. ETH mark: × Curve `get_dy(stETH→ETH)`.");
+  lines.push("3. Lido baseline: `wstETH.getStETHByWstETH(1e18)` growth over the same window.");
+  lines.push("4. **ETH base** = absolute ETH share-price APY.");
+  lines.push("5. **stETH base** = excess over holding stETH/wstETH (vault stETH APY − Lido staking APY).");
+  lines.push("6. Do not use Fluid API/UI APY (frontend can hardcode fallbacks).");
   lines.push("");
-  lines.push("## Results — stETH base");
+  lines.push("## Results — ETH base (absolute, after performance fee / Net)");
   lines.push("");
-  lines.push("| Window (d) | Actual days | Start stETH/share | End stETH/share | Period return | APY |");
-  lines.push("| ---: | ---: | ---: | ---: | ---: | ---: |");
+  lines.push("| Window (d) | Actual days | Start ETH/share | End ETH/share | Period Net | APY Net | APY Gross (before 20% fee) |");
+  lines.push("| ---: | ---: | ---: | ---: | ---: | ---: | ---: |");
   for (const w of report.windows) {
     lines.push(
-      `| ${w.requestedDays} | ${w.actualDays} | ${w.steth.startPrice} | ${w.steth.endPrice} | ${w.steth.periodReturnPct} | **${w.steth.apyPct}** |`,
+      `| ${w.requestedDays} | ${w.actualDays} | ${w.eth.startPrice} | ${w.eth.endPrice} | ${w.eth.periodReturnNetPct} | **${w.eth.apyNetPct}** | ${w.eth.apyGrossPct} |`,
     );
   }
   lines.push("");
-  lines.push("## Results — ETH base");
+  lines.push("## Results — stETH base (excess over holding stETH, after performance fee / Net)");
   lines.push("");
-  lines.push("| Window (d) | Actual days | Start ETH/share | End ETH/share | Period return | APY |");
-  lines.push("| ---: | ---: | ---: | ---: | ---: | ---: |");
+  lines.push("| Window (d) | Actual days | Vault stETH growth | Lido staking | Excess Period Net | APY Net | APY Gross |");
+  lines.push("| ---: | ---: | ---: | ---: | ---: | ---: | ---: |");
   for (const w of report.windows) {
     lines.push(
-      `| ${w.requestedDays} | ${w.actualDays} | ${w.eth.startPrice} | ${w.eth.endPrice} | ${w.eth.periodReturnPct} | **${w.eth.apyPct}** |`,
+      `| ${w.requestedDays} | ${w.actualDays} | ${w.diagnostics.vaultStethAbsPeriodNetPct} | ${w.diagnostics.lidoPeriodPct} | ${w.steth.periodReturnNetPct} | **${w.steth.apyNetPct}** | ${w.steth.apyGrossPct} |`,
     );
   }
   lines.push("");
-  lines.push("## Notes");
+  lines.push("## Why ETH vs stETH bases differ");
   lines.push("");
-  lines.push("- Fluid frontend currently overrides displayed APY when API APY < 1% (hardcoded fallback), and zeroed APY before 2026-05-18 — another reason to compute independently.");
-  lines.push("- ETH base embeds Curve stETH/ETH depeg + pool fee in `get_dy`; stETH base isolates vault share growth in asset units.");
+  lines.push(
+    "Vault `convertToAssets` already embeds Lido/weETH staking plus leverage alpha (net of borrow + 20% fee). If both bases used only unit conversion (stETH vs Curve ETH), they would be nearly identical while the peg holds. The economically meaningful split is:",
+  );
+  lines.push("");
+  lines.push("- ETH base ≈ total return versus holding ETH");
+  lines.push("- stETH base ≈ extra return versus holding stETH (≈ ETH base − Lido staking)");
+  lines.push("");
+  lines.push("## Frontend hardcoded APY note");
+  lines.push("");
+  lines.push(
+    "In Fluid frontend `lite` positions loader, if API APY < 1% it replaces displayed values with hardcoded `3.71%` / `2.97%`, and before `2026-05-18` it forced APY to `0`. Independent audit must ignore that UI layer.",
+  );
   lines.push("");
   return lines.join("\n");
 }
@@ -259,16 +342,16 @@ async function main() {
     const targetTs = end.timestamp - days * 86400;
     const startBlock = await findBlockNearTimestamp(client, targetTs, latest);
     const start = await readSnapshot(client, startBlock.number);
-    const row = calcWindowApy(start, end, days);
+    const row = calcWindow(start, end, days);
     windows.push(row);
     console.log(
       [
         `window=${days}d`,
         `actual=${row.actualDays}`,
-        `stETH_APY=${row.steth.apyPct}`,
-        `ETH_APY=${row.eth.apyPct}`,
-        `startBlock=${start.blockNumber}`,
-        `start=${start.iso}`,
+        `ETH_net=${row.eth.apyNetPct}`,
+        `ETH_gross=${row.eth.apyGrossPct}`,
+        `stETH_excess_net=${row.steth.apyNetPct}`,
+        `lido=${row.diagnostics.lidoStakingApyPct}`,
       ].join(" | "),
     );
   }
@@ -279,20 +362,23 @@ async function main() {
     page: "https://fluid.io/lite/1/ETH",
     assumptions: {
       ignoreExitFee: true,
+      exitFee: EXIT_FEE.toFixed(),
+      performanceFee: PERFORMANCE_FEE.toFixed(),
+      performanceFeeTreatment:
+        "Net APY from convertToAssets already after 20% performance fee; Gross grosses up period net return by /0.8",
       daysPerYear: DAYS_PER_YEAR,
-      stethSource: "ERC-4626 convertToAssets",
-      ethMarkToMarket: "Curve stETH/ETH get_dy(stETH->ETH)",
+      ethBase: "absolute ETH share return via convertToAssets * Curve(stETH->ETH)",
+      stethBase: "excess over Lido wstETH->stETH growth",
       trustFluidPublishedApy: false,
     },
     end,
     windows,
     summary: {
-      stethBase: Object.fromEntries(
-        windows.map((w) => [String(w.requestedDays), w.steth.apyPct]),
-      ),
-      ethBase: Object.fromEntries(
-        windows.map((w) => [String(w.requestedDays), w.eth.apyPct]),
-      ),
+      ethBaseNetApy: Object.fromEntries(windows.map((w) => [String(w.requestedDays), w.eth.apyNetPct])),
+      ethBaseGrossApy: Object.fromEntries(windows.map((w) => [String(w.requestedDays), w.eth.apyGrossPct])),
+      stethBaseExcessNetApy: Object.fromEntries(windows.map((w) => [String(w.requestedDays), w.steth.apyNetPct])),
+      stethBaseExcessGrossApy: Object.fromEntries(windows.map((w) => [String(w.requestedDays), w.steth.apyGrossPct])),
+      lidoStakingApy: Object.fromEntries(windows.map((w) => [String(w.requestedDays), w.diagnostics.lidoStakingApyPct])),
     },
   };
 
@@ -302,9 +388,11 @@ async function main() {
   fs.writeFileSync(jsonPath, JSON.stringify(report, null, 2));
   fs.writeFileSync(mdPath, renderMarkdown(report));
 
-  console.log("\n=== SUMMARY (ignore exit fee) ===");
-  console.log("stETH base APY:", report.summary.stethBase);
-  console.log("ETH base APY  :", report.summary.ethBase);
+  console.log("\n=== SUMMARY ===");
+  console.log("ETH base Net APY           :", report.summary.ethBaseNetApy);
+  console.log("ETH base Gross APY         :", report.summary.ethBaseGrossApy);
+  console.log("stETH excess Net APY       :", report.summary.stethBaseExcessNetApy);
+  console.log("Lido staking APY (baseline):", report.summary.lidoStakingApy);
   console.log(`\nWrote ${jsonPath}`);
   console.log(`Wrote ${mdPath}`);
 }
