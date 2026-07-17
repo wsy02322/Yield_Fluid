@@ -65,3 +65,13 @@ Evidence:
 - `audit/lido-frontend-evidence/`
 
 Result: no Fluid-style hardcoded APY fallback found on the Lido page.
+
+### Mellow app (`app.mellow.finance`)
+
+See `audit/mellow-frontend-apy-display.md`.
+
+Evidence:
+
+- `audit/mellow-frontend-evidence/`
+
+Result: no Fluid-style `&lt;1% → 2.97/3.71` rewrite found. EarnETH uses API APY as-is. Note: a few archived Mezo vaults hardcode `predictedApy` (35/37). Live app JS was Cloudflare-blocked here; audit used Wayback `2026-07-11` bundle.

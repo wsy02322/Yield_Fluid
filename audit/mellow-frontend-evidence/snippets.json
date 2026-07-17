@@ -1,0 +1,32 @@
+{
+  "B0_select_apy_or_apr": "function B0(e,t){if(!(null!=(null===t||void 0===t?void 0:t.apr)||null!=(null===t||void 0===t?void 0:t.apy)))return null;if(\"APY\"===e){var n,r;return{value:null!==(n=null!==(r=t.apy)&&void 0!==r?r:t.apr)&&void 0!==n?n:0,type:null!=t.apy?\"APY\":\"APR\"}}var a,i;return{value:null!==(a=null!==(i=t.apr)&&void 0!==i?i:t.apy)&&void 0!==a?a:0,type:null!=t.apr?\"APR\":\"APY\"}}",
+  "vault_detail_apy_priority": "if(e.apyLoader)e.apyLoader(e.address,e.predictedApy).then((e=>{u(e?{value:e.value,type:(null===f||void 0===f?void 0:f.type)||\"APY\",lastUpdate:\"\"}:v3)}));else if(e.predictedApy)u((0,je.Z)((0,je.Z)({},e.predictedApy),{},{lastUpdate:\"\"}));else{if(d){const e=B0(\"APY\",d);if(e)return void u((0,je.Z)((0,je.Z)({},e),{},{lastUpdate:\"\"}))}u(v3)}",
+  "list_apyOverrides_branch": "p=c[i.address],h=null===(n=J0[i.network])||void 0===n?void 0:n[i.baseToken||(null===u||void 0===u?void 0:u.underlyingTokens[0])||\"\"];return{id:i.id,network:i.network,address:i.address,symbol:i.lpTokenSymbol,name:i.name,assets:f.map((e=>{var t;return null===l||void 0===l||null===(t=l[i.network])||void 0===t?void 0:t[e]})).filter(Z0),vault:i,apr:p?{value:p.value,vault:i}:{value:null!==(r=null!==(a=null===d||void 0===d?void 0:d.apy)&&void 0!==a?a:null===d||void 0===d?void 0:d.apr)&&void 0!==r?r:null,vault:i},tvl:void 0!==(null===d||void 0===d?void 0:d.tvl_usd_aggregate)?{tvlUSDC:d.tvl_usd_aggregate||0,tvlToken:_v(BigInt(d.tvl_base_token_aggregate||\"0\"),(null===h||void 0===h?void 0:h.decimals)||18),symbol:(null===h||void 0===h?void 0:h.symbol)||\"\"}:null,limit:null,restakingPoints:{vault:i},operator:i.operator,curators:i.curators,cocurators:i.cocurators,userPosition:void 0!==(null===u||void 0===u?void 0:u.userBalanceUSDC)?{usdAmount:u.userBalanceUSDC,lrtAmount:u.balance,vault:i}:null,badge:i.badge}}",
+  "predictedApy_instances": [
+    {
+      "value": "35",
+      "type": "APY",
+      "name": null,
+      "ctx_tail": "ab:!0},oracleUpdateInterval:BigInt(86400),redeemHandlingInterval:BigInt(3600),isWithdrawDisabled:!0,isInstantDeposit:!0,predictedApy:{value:35,type:\"APY\"},archived:!0,deposit:{disabled:!0}},EU=\"mezo-b"
+    },
+    {
+      "value": "35",
+      "type": "APY",
+      "name": null,
+      "ctx_tail": "23\",tooltip:\"Vaults lock on January 26 for migration. Withdrawals will be available on Mezo after unlock on March 23.\"},predictedApy:{value:35,type:\"APY\"},archived:!0,deposit:{disabled:!0}},LU=\"mezo-c"
+    },
+    {
+      "value": "37",
+      "type": "APY",
+      "name": null,
+      "ctx_tail": "3d235E5\",\"0x0c2a47d52efb0bfbDda1F51cd4Eb97857441fEf6\",\"0x41c5deFe909d5326c7C9Bac309F10826118947a7\"],isInstantDeposit:!0,predictedApy:{value:37,type:\"APY\"},isWithdrawDisabled:!0,archived:!0,deposit:{di"
+    }
+  ],
+  "earn_eth_special_loader_head": null,
+  "earn_eth_config": "hU=\"earn-eth\",mU={id:hU,type:\"core-vault\",name:\"EarnETH\",description:\"EarnETH provides on-chain access to strategies involving ETH-denominated digital assets. It uses defined asset selection and risk controls, supported by transparent reporting.\",category:\"core-vault\",address:\"0x6a37725ca7f4CE81c004c955f7280d5C704a249e\",whiteLabeling:{curatorId:\"mellow\",subdomain:\"earn-eth\"},curators:[\"lido\",\"mellow\"],operator:[],points:[{entity:\"mellow\",startTimestamp:1738573595}],network:\"ethereum\",networks:[{network:\"ethereum\",vaultAddress:\"0x6a37725ca7f4CE81c004c955f7280d5C704a249e\"}],additionalDepositTokens:[{address:pU,decimals:18,symbol:\"strETH\"},{address:fU,decimals:18,symbol:\"DVstETH\"},{address:dU,decimals:18,symbol:\"GG\"}],baseToken:\"0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE\",lpTokenSymbol:\"earnETH\",lpTokenDecimals:18,oracleUpdateInterval:BigInt(86400),redeemHandlingInterval:BigInt(3600),callCo",
+  "api_base": "$T=\"https://api.mellow.finance\"||\"https://api.stage.mellow.finance\",eS=\"0x0000000000000000000000000000000000000000\",tS=\"0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE\",nS={ethereum:\"0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84\"},rS={ethereum:\"0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0\"};",
+  "ace_calls": [
+    "ace({vaults:t,vaultsData:c,vaultsCollectorData:Object.values(d).flat().filter(Z0),tokensData:p}",
+    "ace({vaults:t,vaultsCollectorData:Object.values(d).flat().filter(Z0),vaultsData:c,tokensData:p}"
+  ]
+}

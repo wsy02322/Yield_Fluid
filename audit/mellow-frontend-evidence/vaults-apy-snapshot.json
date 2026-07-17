@@ -1,0 +1,631 @@
+{
+  "n_with_rate": 69,
+  "apy_min": -4.7784314,
+  "apy_max": 30.0,
+  "apy_lt_1": 7,
+  "apy_eq_0": 4,
+  "apy_neg": 3,
+  "rows": [
+    {
+      "id": "ethereum-dvsteth",
+      "type": "dvv-vault",
+      "symbol": "DVstETH",
+      "address": "0x5E362eb2c0706Bd1d134689eC75176018385430B",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-roeth",
+      "type": "multi-vault",
+      "symbol": "roETH",
+      "address": "0x7b31F008c48EFb65da78eA0f255EE424af855249",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-urlrt",
+      "type": "multi-vault",
+      "symbol": "urLRT",
+      "address": "0x4f3Cc6359364004b245ad5bE36E6ad4e805dC961",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-steaklrt",
+      "type": "multi-vault",
+      "symbol": "steakLRT",
+      "address": "0xBEEF69Ac7870777598A04B2bd4771c71212E6aBc",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-re7lrt",
+      "type": "multi-vault",
+      "symbol": "Re7LRT",
+      "address": "0x84631c0d0081FDe56DeB72F6DE77abBbF6A9f93a",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-amphreth",
+      "type": "multi-vault",
+      "symbol": "amphrETH",
+      "address": "0x5fD13359Ba15A84B76f7F87568309040176167cd",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-rsteth",
+      "type": "multi-vault",
+      "symbol": "rstETH",
+      "address": "0x7a4EffD87C2f3C55CA251080b1343b605f327E3a",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-rsusde",
+      "type": "simple-lrt",
+      "symbol": "rsUSDe",
+      "address": "0x82f5104b23FF2FA54C2345F821dAc9369e9E0B26",
+      "chain_id": 1,
+      "apr": null,
+      "apy": 3.90641
+    },
+    {
+      "id": "ethereum-ifseth",
+      "type": "multi-vault",
+      "symbol": "ifsETH",
+      "address": "0x49cd586dd9BA227Be9654C735A659a1dB08232a9",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-lugaeth",
+      "type": "multi-vault",
+      "symbol": "LugaETH",
+      "address": "0x82dc3260f599f4fC4307209A1122B6eAa007163b",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-coeth",
+      "type": "multi-vault",
+      "symbol": "co_eth",
+      "address": "0xd6E09a5e6D719d1c881579C9C8670a210437931b",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-pzeth",
+      "type": "multi-vault",
+      "symbol": "pzETH",
+      "address": "0x8c9532a60E0E7C6BbD2B2c1303F63aCE1c3E9811",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-hceth",
+      "type": "multi-vault",
+      "symbol": "hcETH",
+      "address": "0x375A8eE22280076610cA2B4348d37cB1bEEBeba0",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-iseth",
+      "type": "multi-vault",
+      "symbol": "isETH",
+      "address": "0xcC36e5272c422BEE9A8144cD2493Ac472082eBaD",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-hyvex",
+      "type": "multi-vault",
+      "symbol": "HYVEX",
+      "address": "0x24183535a24CF0272841B05047A26e200fFAB696",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-cp0xlrt",
+      "type": "multi-vault",
+      "symbol": "cp0xLRT",
+      "address": "0xB908c9FE885369643adB5FBA4407d52bD726c72d",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-a41-vault",
+      "type": "multi-vault",
+      "symbol": "a41ETH",
+      "address": "0x1EC4C1f8CDd7cb2Da5903701bFbD64f03ed33244",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-mevcapital-lidov3-stvault-nodeinfra",
+      "type": "multi-vault",
+      "symbol": "mevnoETH",
+      "address": "0x73D596efEAe0A6833079e4fc999FD5ceE55770A5",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-mevcapital-lidov3-stvault-alchemy",
+      "type": "multi-vault",
+      "symbol": "ALstETH",
+      "address": "0x1af14EBC81e8F92E0DA13D2912091d556a4Ac47B",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-mevcapital-lidov3-stvault-kiln",
+      "type": "multi-vault",
+      "symbol": "mevkstETH",
+      "address": "0x0F37f1ff51Fc2f8a9907eF3e226A12fDC47de4aD",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-mevcapital-lidov3-stvault-blockscape",
+      "type": "multi-vault",
+      "symbol": "mevblETH",
+      "address": "0x70558848f6b31AE03AD5a25868cD3d25E0fE8506",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-stakefish-lidov3-restaked-eth",
+      "type": "multi-vault",
+      "symbol": "sfETH",
+      "address": "0xb11C95eeB53FF748B6Dd4e2F9f4294F8F4030aF0",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-stakin-boosted-eth-vault",
+      "type": "multi-vault",
+      "symbol": "bstkETH",
+      "address": "0xCeC15B365DC06Fac54114d8195B0253FffB9740F",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-pier-two-all-networks",
+      "type": "multi-vault",
+      "symbol": "ptstETH",
+      "address": "0x6a834527b3a99ebB48A9C57A4d7843a028e89823",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-republic-enhanced-yield-vault",
+      "type": "multi-vault",
+      "symbol": "repETH",
+      "address": "0x8f4478a6B0f049cB527EFECca6E1b23006B8812f",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-luganodes-lido-v3-pre-deposit-vault",
+      "type": "multi-vault",
+      "symbol": "lnstETHsteak",
+      "address": "0x9707f14B6c8200CBf6c6F2c5498D1D0019A5f15A",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-re7-lidov3-blockscape",
+      "type": "multi-vault",
+      "symbol": "re7blETH",
+      "address": "0x8b0e80716c4be087C271E964E0bDc7780d32A2E8",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-re7-lidov3-p-ops-team",
+      "type": "multi-vault",
+      "symbol": "re7popseth",
+      "address": "0x62F0BAf53959AF18Cab47082f5aB58A5B93e041C",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-simply-staking-lidov3-pre-deposit-vault-steakhouse",
+      "type": "multi-vault",
+      "symbol": "ssSTETH",
+      "address": "0x4C797D53f4772325A8aDFd509F13A2d60Daa7d02",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-provivault",
+      "type": "multi-vault",
+      "symbol": "prvETH",
+      "address": "0x54f506Bd8cC4838B42FB7640F0C811713f1d00Fb",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-re7-lidov3-luganodes",
+      "type": "multi-vault",
+      "symbol": "re7lugeth",
+      "address": "0x2759E4741b370506BE2ccEf898960108e98f2faf",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-re7-lidov3-stakin",
+      "type": "multi-vault",
+      "symbol": "re7stkETH",
+      "address": "0x4C690C311d8A5aa16eC2a595D4ea3928a73C48d6",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-hashkey-cloud-lidov3-pre-deposit-vault",
+      "type": "multi-vault",
+      "symbol": "hcstETH",
+      "address": "0x653c719E10cF65a7b902d2ba63d59FbE52D33184",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-nansen-gauntlet-lidov3-stvault",
+      "type": "multi-vault",
+      "symbol": "nanETH",
+      "address": "0xE1C01ebE1B65034F1e4dD7F65D5A6eC05233C5ec",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-dsrv-vault",
+      "type": "multi-vault",
+      "symbol": "vstETH",
+      "address": "0xF575F1C3DAd6B47f2045015baE313cA885921C8B",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-cosmostation-vault",
+      "type": "multi-vault",
+      "symbol": "stationETH",
+      "address": "0xeDB7FA2aD67974C309c14Bb3610eE2E6703B5C04",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-kukis-global-vault",
+      "type": "multi-vault",
+      "symbol": "kgETH",
+      "address": "0xcAfC35fB68DFCD6AF2BC264E687c6c0279284068",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-infrasingularity-restaked-eth",
+      "type": "multi-vault",
+      "symbol": "isETH",
+      "address": "0xD024d4e1B0ac157aa5BDFDF96388e8dc9a43b19f",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-nodes-guru-vault",
+      "type": "multi-vault",
+      "symbol": "ngETH",
+      "address": "0x2818464883d4EfA130D25D414B6037570c489a7C",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-re7-lidov3-node-monster",
+      "type": "multi-vault",
+      "symbol": "re7ndmeth",
+      "address": "0x883F81511Dae16713b2255B284bad333cd3B7913",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-mevcapital-lidov3-stvault-stake-capital",
+      "type": "multi-vault",
+      "symbol": "mevstETH",
+      "address": "0xf785a3637Fb8DC057a2a23c925e83859Ef212c8d",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-stakely-gauntlet-restaking-plus",
+      "type": "multi-vault",
+      "symbol": "sgrpETH",
+      "address": "0xb2Bb0d53Fff7FF771855ad43F80c769860F627bD",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-flow-traders-restaking-vault",
+      "type": "multi-vault",
+      "symbol": "flowETH",
+      "address": "0x4b8b426D1a934b9C78f139526dc74249d40960ea",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-fungl",
+      "type": "multi-vault",
+      "symbol": "FNGL",
+      "address": "0x04784AeFB2f9FE31fD1ff05A4B331A5DdB46910A",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-01node-vault",
+      "type": "multi-vault",
+      "symbol": "01ETH",
+      "address": "0xE7cAe487F8Da314cCac5F36b829f061983014D65",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-ultrayield-edge-allnodes",
+      "type": "multi-vault",
+      "symbol": "alluETH",
+      "address": "0x9A6340ce1282e01Cb4Ec9faae5fc5F4b60Ca8839",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-encapsulate-vault",
+      "type": "multi-vault",
+      "symbol": "encapETH",
+      "address": "0x00464CC86244AcECEB827e66719998c40F95F462",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-launchnodes-vault",
+      "type": "multi-vault",
+      "symbol": "LNO",
+      "address": "0xFA1E351e89Fee843A1EdFb5efD4b3002743e3ed8",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-openbitlab-vault",
+      "type": "multi-vault",
+      "symbol": "oblETH",
+      "address": "0xea50De218A281a3E91D5e4033c4dd375f553d3bD",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-xhash-dual-yield-restake-vault",
+      "type": "multi-vault",
+      "symbol": "xstETH",
+      "address": "0x3EE460eFfBDEb6d5e1E2345435263c19cd68975f",
+      "chain_id": 1,
+      "apr": 2.207,
+      "apy": null
+    },
+    {
+      "id": "ethereum-staked-bard",
+      "type": "multi-vault",
+      "symbol": "stBARD",
+      "address": "0x4B266366dc8fF4c0007943a679CBa1fDB845f98D",
+      "chain_id": 1,
+      "apr": null,
+      "apy": 30.0
+    },
+    {
+      "id": "lisk-wsteth-vault",
+      "type": "multi-vault",
+      "symbol": "lskETH",
+      "address": "0x1b10E2270780858923cdBbC9B5423e29fffD1A44",
+      "chain_id": 1135,
+      "apr": 2.339,
+      "apy": null
+    },
+    {
+      "id": "lisk-rsmbtc-vault",
+      "type": "multi-vault",
+      "symbol": "rsM-BTC",
+      "address": "0xa67E8B2E43B70D98E1896D3f9d563f3ABdB8Adcd",
+      "chain_id": 1135,
+      "apr": 0.0,
+      "apy": null
+    },
+    {
+      "id": "lisk-lsk-vault",
+      "type": "multi-vault",
+      "symbol": "rsLSK",
+      "address": "0x8cf94b5A37b1835D634b7a3e6b1EE02Ce7F0CD30",
+      "chain_id": 1135,
+      "apr": 0.0,
+      "apy": null
+    },
+    {
+      "id": "bsc-cyclenetwork-vault",
+      "type": "multi-vault",
+      "symbol": "CYC",
+      "address": "0xc8e046fe778BE29572016d1f703e9B2ff77a207D",
+      "chain_id": 56,
+      "apr": 7.0,
+      "apy": null
+    },
+    {
+      "id": "lido-strategy",
+      "type": "core-vault",
+      "symbol": "strETH",
+      "address": "0x277C6A642564A91ff78b008022D65683cEE5CCC5",
+      "chain_id": 1,
+      "apr": null,
+      "apy": 3.34319
+    },
+    {
+      "id": "ethereum-tqeth",
+      "type": "core-vault",
+      "symbol": "tqETH",
+      "address": "0xDbC81B33A23375A90c8Ba4039d5738CB6f56fE8d",
+      "chain_id": 1,
+      "apr": null,
+      "apy": 5.06715
+    },
+    {
+      "id": "mezo-stable-vault",
+      "type": "core-vault",
+      "symbol": "msvUSD",
+      "address": "0x07AFFA6754458f88db83A72859948d9b794E131b",
+      "chain_id": 31612,
+      "apr": null,
+      "apy": -4.7784314
+    },
+    {
+      "id": "mezo-btc-pre-deposit-vault",
+      "type": "core-vault",
+      "symbol": "mbhBTC",
+      "address": "0xa8A3De0c5594A09d0cD4C8abc4e3AaB9BaE03F36",
+      "chain_id": 1,
+      "apr": null,
+      "apy": 0.0
+    },
+    {
+      "id": "mezo-btc-vault",
+      "type": "core-vault",
+      "symbol": "mbhBTC",
+      "address": "0x807D4778abA870e4222904f5b528F68B350cE0E0",
+      "chain_id": 31612,
+      "apr": null,
+      "apy": 6.6110287
+    },
+    {
+      "id": "mezo-stable-vault",
+      "type": "core-vault",
+      "symbol": "msvUSD",
+      "address": "0x07AFFA6754458f88db83A72859948d9b794E131b",
+      "chain_id": 31612,
+      "apr": null,
+      "apy": -4.7784314
+    },
+    {
+      "id": "mezo-cbbtc-pre-deposit-vault",
+      "type": "core-vault",
+      "symbol": "mbhcbBTC",
+      "address": "0x63a76a4a94cAB1DD49fcf0d7E3FC53a78AC8Ec5C",
+      "chain_id": 1,
+      "apr": null,
+      "apy": 0.0
+    },
+    {
+      "id": "mezo-cbbtc-vault",
+      "type": "core-vault",
+      "symbol": "mbhcbBTC",
+      "address": "0x06ED1E2167AA7FBf2476c5A2D220Bf702559Dcf8",
+      "chain_id": 31612,
+      "apr": null,
+      "apy": -0.4546996
+    },
+    {
+      "id": "monad-vault",
+      "type": "core-vault",
+      "symbol": "MVT",
+      "address": "0x912644cdFadA93469b8aB5b4351bDCFf61691613",
+      "chain_id": 143,
+      "apr": null,
+      "apy": 0.0
+    },
+    {
+      "id": "rootstock-tyr-rbtc",
+      "type": "core-vault",
+      "symbol": "Tyr.rBTC",
+      "address": "0x97Bb1d1b9FaA1091406A005F0B4a1658e5b542Eb",
+      "chain_id": 30,
+      "apr": null,
+      "apy": 12.53254
+    },
+    {
+      "id": "lido-earn-eth",
+      "type": "core-vault",
+      "symbol": "earnETH",
+      "address": "0x6a37725ca7f4CE81c004c955f7280d5C704a249e",
+      "chain_id": 1,
+      "apr": null,
+      "apy": 3.03841
+    },
+    {
+      "id": "lido-earn-usd",
+      "type": "core-vault",
+      "symbol": "earnUSD",
+      "address": "0x014e6DA8F283C4aF65B2AA0f201438680A004452",
+      "chain_id": 1,
+      "apr": null,
+      "apy": 5.58558
+    },
+    {
+      "id": "ethereum-coinshift-uspc-loop",
+      "type": "core-vault",
+      "symbol": "CsUSPC",
+      "address": "0xd3CcB5c59cDC8089DCE8e711c5da50A62572f422",
+      "chain_id": 1,
+      "apr": null,
+      "apy": 0.0
+    },
+    {
+      "id": "robinhood-usdg-yield-vault",
+      "type": "core-vault",
+      "symbol": "rUSDG",
+      "address": "0xCe939C136cFfd80747e61f45F17EFdcd4D4abD3B",
+      "chain_id": 4663,
+      "apr": null,
+      "apy": 9.91176
+    }
+  ]
+}

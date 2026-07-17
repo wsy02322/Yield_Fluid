@@ -1,0 +1,16 @@
+{
+  "audit_time_utc": "2026-07-17",
+  "live_app": "https://app.mellow.finance/",
+  "live_app_access": "Cloudflare/geo 403 from audit environment; identical restricted UniV3 shell returned for all paths",
+  "wayback_bundle": {
+    "timestamp": "20260711094324",
+    "html": "https://web.archive.org/web/20260711094324id_/https://app.mellow.finance/",
+    "js": "https://web.archive.org/web/20260711094324id_/https://app.mellow.finance/static/js/main.f7c62d3a.js",
+    "js_file": "main.f7c62d3a.js",
+    "js_sha256": "bee8fc17b4c38dac7a75f8f28e168cafb0a35eff03641583c8152438afc2e580",
+    "js_bytes": 4008843
+  },
+  "marketing": "https://mellow.finance/assets/app-d9adiFJp.js",
+  "api_base": "https://api.mellow.finance",
+  "earn_eth": "0x6a37725ca7f4CE81c004c955f7280d5C704a249e"
+}
