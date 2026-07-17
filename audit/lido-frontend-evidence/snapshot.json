@@ -1,0 +1,68 @@
+{
+  "auditedAt": "2026-07-17T11:29:58.651Z",
+  "page": "https://stake.lido.fi/earn/eth/deposit",
+  "widgetRelease": "0.145.2",
+  "ethVault": "0x6a37725ca7f4CE81c004c955f7280d5C704a249e",
+  "liveTimeweightedApy": {
+    "apy": "3.52556",
+    "days": 14,
+    "apyLastUpdate": "1784280023"
+  },
+  "liveDataApy": {
+    "apy": 3.03841,
+    "apyLastUpdate": "1784280023",
+    "historicalApy": [
+      {
+        "apy": "3.99936",
+        "timestamp": 1783755179
+      },
+      {
+        "apy": "3.62398",
+        "timestamp": 1783841543
+      },
+      {
+        "apy": "6.00848",
+        "timestamp": 1783938803
+      },
+      {
+        "apy": "3.63654",
+        "timestamp": 1784013551
+      },
+      {
+        "apy": "1.27596",
+        "timestamp": 1784111039
+      },
+      {
+        "apy": "0.25447",
+        "timestamp": 1784207519
+      },
+      {
+        "apy": "2.47005",
+        "timestamp": 1784280023
+      }
+    ]
+  },
+  "findings": {
+    "fluidStyleHardcodedLowApyFallback": false,
+    "fluidStyleForcedZeroWindow": false,
+    "staleHandling": "mute color if apyLastUpdate older than 48h; keep original value",
+    "apySource": "https://api.mellow.finance/v1/chain/1/core-vaults/{ethVault}/timeweighted-apy"
+  },
+  "bundleHashes": [
+    {
+      "file": "__next_static_chunks_pages__app-85bf6cba179f7c55.js",
+      "bytes": 5312214,
+      "sha256": "0e432545296a674e683699ee012ac720bba54cfba00ef6ff8a3d314bd026974c"
+    },
+    {
+      "file": "__next_static_chunks_4548-f0dd6d34fb897cdd.js",
+      "bytes": 615464,
+      "sha256": "500efe7ab6feecd66f0cd8ac5232f0a727818d701cb20d529c5cd9a55816008b"
+    },
+    {
+      "file": "__next_static_chunks_7489-5699908525851841.js",
+      "bytes": 529391,
+      "sha256": "67c21c336e35ec90d56f7202f7a43278c2a35d803bd351af54ddd216ace2d1e2"
+    }
+  ]
+}

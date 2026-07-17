@@ -46,12 +46,22 @@ Outputs:
 - `output/fluid-lite-eth-apy.json`
 - `output/fluid-lite-eth-apy.md`
 
-## Frontend APY display audit (official page code only)
+## Frontend APY display audits (official page code only)
+
+### Fluid Lite ETH
 
 See `audit/frontend-apy-display.md`.
 
-Evidence snapshots:
+Evidence:
 
-- `audit/frontend-evidence/K22JU5R.lite-positions.js`
-- `audit/frontend-evidence/EHJheCuG.lite-eth-page.js`
-- `audit/frontend-evidence/snapshot.json`
+- `audit/frontend-evidence/`
+
+### Lido Earn ETH deposit
+
+See `audit/lido-frontend-apy-display.md`.
+
+Evidence:
+
+- `audit/lido-frontend-evidence/`
+
+Result: no Fluid-style hardcoded APY fallback found on the Lido page.
