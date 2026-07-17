@@ -1,0 +1,29 @@
+{
+  "auditedAt": "2026-07-17T11:14:33.534Z",
+  "page": "https://fluid.io/lite/1/ETH",
+  "sentryRelease": "62922be11b2a22e0c53e5bbaac03d05625bdfbcb",
+  "assets": [
+    {
+      "file": "/workspace/audit/frontend-evidence/K22JU5R.lite-positions.js",
+      "bytes": 2434,
+      "sha256": "8dfbc396bf84d5b7a6350984d8ab3f4ce0b6b10163641635d3e38192359aed6c"
+    },
+    {
+      "file": "/workspace/audit/frontend-evidence/EHJheCuG.lite-eth-page.js",
+      "bytes": 29195,
+      "sha256": "1b19171582256f6083476d8dd297589c3ac7eabe4a0721218d0e998dd8c5ee0a"
+    }
+  ],
+  "liveApiApy": {
+    "apyWithoutFee": "5.728421903404508824",
+    "apyWithFee": "7.16052737925563603"
+  },
+  "afterFrontendMutation": {
+    "apyWithoutFee": "5.728421903404508824",
+    "apyWithFee": "7.16052737925563603"
+  },
+  "forceZeroCutoff": "2026-05-18T02:30:00.000Z",
+  "forceZeroActive": false,
+  "displayField": "apyWithoutFee",
+  "displayExpression": "formatPercent(div(apyWithoutFee, 100).toFixed(4))"
+}

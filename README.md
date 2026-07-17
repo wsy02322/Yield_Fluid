@@ -45,3 +45,13 @@ Outputs:
 
 - `output/fluid-lite-eth-apy.json`
 - `output/fluid-lite-eth-apy.md`
+
+## Frontend APY display audit (official page code only)
+
+See `audit/frontend-apy-display.md`.
+
+Evidence snapshots:
+
+- `audit/frontend-evidence/K22JU5R.lite-positions.js`
+- `audit/frontend-evidence/EHJheCuG.lite-eth-page.js`
+- `audit/frontend-evidence/snapshot.json`
